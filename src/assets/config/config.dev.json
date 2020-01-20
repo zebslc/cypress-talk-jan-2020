@@ -1,0 +1,22 @@
+{
+  "env": {
+    "name": "DEV",
+    "url": "http://localhost:4200"
+  },
+  "aad": {
+    "tenant": "jonexperiments.onmicrosoft.com",
+    "clientId": "2b56595d-fd77-4e0a-9518-7d0a7c596aa3",
+    "signUpSignInPolicy": "B2C_1_LOCAL_SUSI",
+    "passwordResetPolicy": "B2C_1_LOCAL_PASSRESET",
+    "b2cScopes": [
+      "https://jonexperiments.onmicrosoft.com/local-api/access.read"
+    ]
+  },
+  "apiServer": {
+    "user": "https://cypress-test-jan-2020.free.beeceptor.com/",
+    "products": "https://my.api.mockaroo.com/products.json?key=e11752a0"
+  },
+  "appInsights": {
+    "instrumentationKey": "6ae97b5f-36f1-49fc-9453-f85147b28cd4"
+  }
+}

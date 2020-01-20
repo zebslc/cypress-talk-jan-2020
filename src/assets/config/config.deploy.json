@@ -1,0 +1,19 @@
+{
+  "env": {
+    "name": "#{name}#",
+    "url": "#{url}#"
+  },
+  "aad": {
+    "tenant": "#{tenant}#",
+    "clientId": "#{clientId}#",
+    "signUpSignInPolicy": "#{signUpSignInPolicy}#",
+    "passwordResetPolicy": "#{passwordResetPolicy}#",
+    "b2cScopes": [ "#{b2cScopes}#" ]
+  },
+  "apiServer": {
+    "user": "#{user}#"
+  },
+  "appInsights": {
+    "instrumentationKey": "#{instrumentationKey}#"
+  }
+}

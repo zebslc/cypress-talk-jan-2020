@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+$defaultFont: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+
+html,body{height:100%;}
+body { margin: 0; }
+* { font-family: $defaultFont; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
