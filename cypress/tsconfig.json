@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "typeRoots": ["/support/security/index.d.ts"]
+  },
+  "include": ["node_modules/cypress", "**/*.ts", "plugins/index.js", "plugins/cy-ts-preprocessor.js"]
+}

@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint --fix",
-    "e2e": "ng e2e"
+    "cypress-open": "node_modules\\.bin\\cypress open",
+    "cypress-run": "node_modules\\.bin\\cypress run --reporter junit --reporter-options mochaFile=cypress/results/junit-result.xml,toConsole=true",
+    "e2e": "start-server-and-test start http-get://localhost:4200 cypress-run",
+    "cy:open": "start-server-and-test start http-get://localhost:4200 cypress-open"
   },
   "private": true,
   "dependencies": {
@@ -34,11 +37,20 @@
     "@angular/cli": "~8.3.23",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
+    "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@types/chai": "^4.2.7",
+    "@types/chai-as-promised": "^7.1.2",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
-    "codelyzer": "~4.5.0",
-    "jasmine-core": "~2.99.1",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chromedriver": "^79.0.0",
+    "codelyzer": "^5.2.1",
+    "cypress": "^3.8.2",
+    "jasmine": "^3.5.0",
+    "jasmine-core": "^3.5.0",
+    "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
     "karma-chrome-launcher": "~2.2.0",
@@ -46,9 +58,11 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.4.0",
+    "puppeteer": "^2.0.0",
+    "start-server-and-test": "^1.10.7",
     "ts-mocks": "^2.6.1",
     "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
+    "tslint": "^5.11.0",
     "typescript": "~3.5.3"
   }
 }
