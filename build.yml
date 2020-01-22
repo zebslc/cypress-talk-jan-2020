@@ -1,0 +1,74 @@
+pool:
+  name: SetYourBuildPoolNameHere
+  demands: npm
+
+steps:
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
+
+- task: Npm@1
+  displayName: 'npm lintfix'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run-script lintfix'
+  condition: succeededOrFailed()
+
+- script: |
+   @echo off
+   ECHO SOURCE BRANCH IS %SYSTEM_PULLREQUEST_SOURCEBRANCH%
+   git commit -a -m "Lint fix" && git push origin HEAD:%SYSTEM_PULLREQUEST_SOURCEBRANCH%
+   ECHO GIT STATUS
+   git status
+  displayName: 'commit fix and push'
+
+- powershell: |
+   $allOutput = & npm run cover 2>&1
+   echo $allOutput
+
+   if ($allOutput -cmatch 'ERROR|WARNING|LOG|ngZone')
+   {
+       echo $matches
+       Write-Error "(FAILED)"
+   }
+  errorActionPreference: continue
+  failOnStderr: true
+  displayName: 'run tests with coverage'
+  condition: succeededOrFailed()
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
+    failIfCoverageEmpty: true
+  condition: succeededOrFailed()
+
+- task: Npm@1
+  displayName: 'npm run e2e'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run-script e2e'
+
+- task: PublishTestResults@2
+  displayName: 'Publish e2e Test Results e2e-results-junit.xml'
+  inputs:
+    testResultsFiles: '**/junit-result.xml'
+    testRunTitle: 'e2e-tests'
+
+- task: Npm@1
+  displayName: 'Build the app'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run-script build --prod --build-optimizer --environment=prod'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: dist'
+  inputs:
+    PathtoPublish: 'dist\'
+    ArtifactName: dist
