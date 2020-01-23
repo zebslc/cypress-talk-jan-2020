@@ -1,6 +1,8 @@
 # Cypress Talk in Brighton January 2020
 
-This project is a simple example project that runs with Microsoft B2C security and secured routes
+* Work in progress - currently the configuration is correct for CI but there are no tests added yet. 
+
+This project is a simple example project that runs with Microsoft B2C security and secured routes.
 It is written to show aspects of Cypress and how it can mock api calls with substitutes and run as part of a CI build
 It integrates with a Azure Devops to automatically build/deploy using a pipeline from GitHub so uses headless chrome througout.
 When cypress releases it's firefox headless module the intention is to incorporate that too.
